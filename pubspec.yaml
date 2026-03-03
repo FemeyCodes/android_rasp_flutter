@@ -1,11 +1,12 @@
 name: android_rasp_flutter
 description: "A new Flutter plugin project."
 version: 0.0.1
+repository: https://github.com/timfemey/android_rasp_flutter#
 homepage:
 
 environment:
   sdk: ^3.10.4
-  flutter: '>=3.3.0'
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
