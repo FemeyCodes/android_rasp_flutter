@@ -16,8 +16,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _androidRaspFlutterPlugin = AndroidRaspFlutter();
+  String _securityState = 'Unknown';
+  final _androidRaspFlutterPlugin = AndroidRasp.securityStatus;
 
   @override
   void initState() {
@@ -27,14 +27,13 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
+    SecurityStatus? status;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _androidRaspFlutterPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      status = await _androidRaspFlutterPlugin;
     } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      status = null;
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -42,21 +41,34 @@ class _MyAppState extends State<MyApp> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    switch (status) {
+      case SecurityStatus.secure:
+        setState(() {
+          _securityState = "Secure";
+        });
+        break;
+      case SecurityStatus.rooted:
+        setState(() {
+          _securityState = "Rooted";
+        });
+      case SecurityStatus.emulator:
+        setState(() {
+          _securityState = "Emulator";
+        });
+      case SecurityStatus.debugger:
+        setState(() {
+          _securityState = "Debugger";
+        });
+      default:
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+        appBar: AppBar(title: const Text('Plugin example app')),
+        body: Center(child: Text('Security State is on: $_securityState\n')),
       ),
     );
   }
