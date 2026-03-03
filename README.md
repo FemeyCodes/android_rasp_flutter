@@ -1,15 +1,13 @@
 # android_rasp_flutter
 
-A new Flutter plugin project.
+A Flutter Wrapper for SecureVale Android.
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/to/develop-plugins),
+This plugin project is a wrapper for SecureVale android-rasp 0.7.1
+[plug-in package](https://pub.dev),
 a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+Android.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+For help knowing about android-rasp, view the
+[online repository](https://github.com/securevale/android-rasp), which offers full reference on the Kotlin Internals.
