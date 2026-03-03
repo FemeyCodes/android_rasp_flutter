@@ -50,6 +50,8 @@ android {
     dependencies {
         testImplementation("org.jetbrains.kotlin:kotlin-test")
         testImplementation("org.mockito:mockito-core:5.0.0")
+        implementation 'com.securevale:rasp-android:0.7.1'
+	implementation 'com.securevale:rasp-packages:0.7.1'
     }
 
     testOptions {
