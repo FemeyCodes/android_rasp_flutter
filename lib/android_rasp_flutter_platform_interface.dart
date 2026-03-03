@@ -8,7 +8,8 @@ abstract class AndroidRaspFlutterPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static AndroidRaspFlutterPlatform _instance = MethodChannelAndroidRaspFlutter();
+  static AndroidRaspFlutterPlatform _instance =
+      MethodChannelAndroidRaspFlutter();
 
   /// The default instance of [AndroidRaspFlutterPlatform] to use.
   ///

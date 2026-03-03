@@ -1,29 +1,26 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:android_rasp_flutter/android_rasp_flutter.dart';
-import 'package:android_rasp_flutter/android_rasp_flutter_platform_interface.dart';
-import 'package:android_rasp_flutter/android_rasp_flutter_method_channel.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
-class MockAndroidRaspFlutterPlatform
-    with MockPlatformInterfaceMixin
-    implements AndroidRaspFlutterPlatform {
-
-  @override
-  Future<String?> getPlatformVersion() => Future.value('42');
-}
 
 void main() {
-  final AndroidRaspFlutterPlatform initialPlatform = AndroidRaspFlutterPlatform.instance;
+  const MethodChannel channel = MethodChannel('android_rasp_plugin');
 
-  test('$MethodChannelAndroidRaspFlutter is the default instance', () {
-    expect(initialPlatform, isInstanceOf<MethodChannelAndroidRaspFlutter>());
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  tearDown(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
   });
 
-  test('getPlatformVersion', () async {
-    AndroidRaspFlutter androidRaspFlutterPlugin = AndroidRaspFlutter();
-    MockAndroidRaspFlutterPlatform fakePlatform = MockAndroidRaspFlutterPlatform();
-    AndroidRaspFlutterPlatform.instance = fakePlatform;
+  test(
+    'getSecurityStatus returns rooted enum when native returns "rooted"',
+    () async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+            return 'rooted';
+          });
 
-    expect(await androidRaspFlutterPlugin.getPlatformVersion(), '42');
-  });
+      expect(await AndroidRasp.securityStatus, SecurityStatus.rooted);
+    },
+  );
 }
