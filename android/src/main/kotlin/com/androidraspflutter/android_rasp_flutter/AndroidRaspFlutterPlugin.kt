@@ -17,9 +17,9 @@ import com.securevale.rasp.android.api.result.Result as RaspResult
 
 class AndroidRaspFlutterPlugin : FlutterPlugin, MethodCallHandler, EventChannel.StreamHandler {
 
-    private lateinit var methodChannel: MethodChannel
-    private lateinit var eventChannel: EventChannel
-    private lateinit var context: Context
+    private var methodChannel: MethodChannel? = null
+    private var eventChannel: EventChannel? = null
+    private var context: Context? = null
 
     private var checker: SecureAppChecker? = null
     private var eventSink: EventChannel.EventSink? = null
@@ -39,10 +39,10 @@ class AndroidRaspFlutterPlugin : FlutterPlugin, MethodCallHandler, EventChannel.
         ).build()
 
         methodChannel = MethodChannel(flutterPluginBinding.binaryMessenger, "android_rasp_plugin")
-        methodChannel.setMethodCallHandler(this)
+        methodChannel?.setMethodCallHandler(this)
 
         eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "android_rasp_plugin/events")
-        eventChannel.setStreamHandler(this)
+        eventChannel?.setStreamHandler(this)
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: FlutterResult) {
@@ -88,7 +88,14 @@ class AndroidRaspFlutterPlugin : FlutterPlugin, MethodCallHandler, EventChannel.
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        methodChannel.setMethodCallHandler(null)
-        eventChannel.setStreamHandler(null)
+        methodChannel?.setMethodCallHandler(null)
+        methodChannel = null
+        
+        eventChannel?.setStreamHandler(null)
+        eventChannel = null
+        
+        eventSink = null
+        checker = null 
+        context = null 
     }
 }
