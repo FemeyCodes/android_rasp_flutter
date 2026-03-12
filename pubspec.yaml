@@ -1,6 +1,6 @@
 name: android_rasp_flutter
 description: "Advanced Mobile App Protection, Secure Vale Android RASP flutter plugin for Device Protection using SecureVale android-rasp package"
-version: 0.0.2
+version: 0.0.3
 repository: https://github.com/timfemey/android_rasp_flutter#
 homepage:
 

@@ -7,3 +7,7 @@
 ## 0.0.2
 
 - Major Documentation Changes
+
+## 0.0.3
+
+- Fixed Possible Memory Leak issues
