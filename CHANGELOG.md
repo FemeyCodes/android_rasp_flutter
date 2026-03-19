@@ -11,3 +11,7 @@
 ## 0.0.3
 
 - Fixed Possible Memory Leak issues
+
+# 0.0.4
+
+- Fixed Context Null Safety Issue
