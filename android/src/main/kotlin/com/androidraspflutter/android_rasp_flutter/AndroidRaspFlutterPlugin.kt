@@ -27,12 +27,13 @@ class AndroidRaspFlutterPlugin : FlutterPlugin, MethodCallHandler, EventChannel.
     private val mainHandler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        context = flutterPluginBinding.applicationContext
+       val bindingContext = flutterPluginBinding.applicationContext
+        context = bindingContext
 
         SecureApp.init()
 
         checker = SecureAppChecker.Builder(
-            context,
+            bindingContext,
             checkEmulator = true,
             checkDebugger = true,
             checkRoot = true
